@@ -13,7 +13,7 @@ from google.auth.transport.requests import Request
 import datetime
 
 # My Spreadsheet ID ... See google documentation on how to derive this
-MY_SPREADSHEET_ID = '193rLLMTHkEk1ER17QpqMCCHqwGSACW-aTYuDNyklRj8'
+MY_SPREADSHEET_ID = '193rLLMTHkEk1ER17QpqMCCHqwGSACW-.........'
 
 
 def update_sheet(sheetname, temperature, waterlevel, var1):  
@@ -23,10 +23,6 @@ def update_sheet(sheetname, temperature, waterlevel, var1):
     """
     # If modifying these scopes, delete the file token.pickle.
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-
-    # The ID and range of a sample spreadsheet.
-    #SAMPLE_SPREADSHEET_ID = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-    SAMPLE_RANGE_NAME = 'A1:C1'
 
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -48,20 +44,7 @@ def update_sheet(sheetname, temperature, waterlevel, var1):
             pickle.dump(creds, token)
 
     service = build('sheets', 'v4', credentials=creds)
-
-    # Call the Sheets API
     sheet = service.spreadsheets()
-    #result = sheet.values().get(spreadsheetId=MY_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME).execute()
-    #values = result.get('values', [])
-
-    #if not values:
-    #    print('No data found.')
-    #else:
-    #    print('Data:',SAMPLE_RANGE_NAME)
-    #    for row in values:
-    #        print('%s, %s, %s' % (row[0], row[1], row[2]))
-
-
     # Call the Sheets API, append the next row of sensor data
     # values is the array of rows we are updating, its a single row
     values = [ [ str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')), temperature, waterlevel, var1 ] ]
